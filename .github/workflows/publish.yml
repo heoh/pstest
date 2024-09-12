@@ -31,15 +31,15 @@ jobs:
         id: tag
         run: echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
 
-      - name: Update version in setup.py
+      - name: Update version in pyproject.toml
         run: |
           VERSION=${{ steps.tag.outputs.TAG_NAME }}
           VERSION=${VERSION#v}
-          sed -i "s/{{VERSION_PLACEHOLDER}}/$VERSION/g" setup.py
+          sed -i "s/{{VERSION_PLACEHOLDER}}/$VERSION/g" pyproject.toml
 
-      - name: Build and publish
+      - name: Build
         run: |
-          python setup.py sdist bdist_wheel
+          python -m build
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
