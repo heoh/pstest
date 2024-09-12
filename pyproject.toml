@@ -7,7 +7,7 @@ repository = "https://github.com/heoh/pstest"
 
 [project]
 name = "pstest"
-version = "0.1.0"
+version = "{{VERSION_PLACEHOLDER}}"
 maintainers = [{name = "HeoHeo", email = "h0h6h2h5@gmail.com"}]
 description = "Python unittest tools for Problem Solving"
 readme = "README.md"
