@@ -44,9 +44,11 @@ class PSTestCase(unittest.TestCase):
         if not hasattr(cls, 'main'):
             cls.main = cls._get_default_main()
 
-    def assertTC(self, module: str, input: str, output: str) -> None:
-        input = self.refine(input)
-        output = self.refine(output)
+    def assertTC(self, module: str,
+                 input: Optional[str] = None,
+                 output: Optional[str] = None) -> None:
+        input = self.refine(input) if input is not None else None
+        output = self.refine(output) if output is not None else None
 
         output_stream = io.StringIO()
         with (redirect_stdin(io.StringIO(input)),
@@ -56,7 +58,8 @@ class PSTestCase(unittest.TestCase):
             runpy.run_path(module, run_name="__main__")
         result = self.refine(output_stream.getvalue())
 
-        self.assertEqual(result, output)
+        if output is not None:
+            self.assertEqual(result, output)
 
     def refine(self, s: str) -> str:
         return textwrap.dedent(s).strip()
