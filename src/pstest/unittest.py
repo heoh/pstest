@@ -35,8 +35,8 @@ class MemorySize:
 
 class PSTestCase(unittest.TestCase):
     problem_url: Optional[str]
-    time_limit: Optional[Time]
-    memory_limit: Optional[MemorySize]
+    time_limit: Optional[Time] = None
+    memory_limit: Optional[MemorySize] = None
     main: str
 
     def __init_subclass__(cls) -> None:
